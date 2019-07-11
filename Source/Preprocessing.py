@@ -8,11 +8,11 @@ import pandas as pd
 #
 class Preprocessing:
     def __init__(self):
-        aisles = pd.read_csv('./Data/aisles.csv')
-        departments = pd.read_csv('./Data/departments.csv')
-        products = pd.read_csv('./Data/products.csv')
-        orders = pd.read_csv('./Data/orders.csv')
-        order_procucts_prior = pd.read_csv('./Data/order_products__prior.csv')
+        aisles = pd.read_csv('../Data/aisles.csv')
+        departments = pd.read_csv('../Data/departments.csv')
+        products = pd.read_csv('../Data/products.csv')
+        orders = pd.read_csv('../Data/orders.csv')
+        order_procucts_prior = pd.read_csv('../Data/order_products__prior.csv')
     def product(self, num = 0):
         
         if num != 0:
