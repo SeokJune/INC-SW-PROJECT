@@ -7,55 +7,48 @@ Author: Lee SeokJune
 import pandas as pd
 #
 class Preprocessing:
+    # Load Data(.csv File)
     def __init__(self):
-        aisles = pd.read_csv('../Data/aisles.csv')
-        departments = pd.read_csv('../Data/departments.csv')
-        products = pd.read_csv('../Data/products.csv')
-        orders = pd.read_csv('../Data/orders.csv')
-        order_procucts_prior = pd.read_csv('../Data/order_products__prior.csv')
-    def product(self, num = 0):
-        
+        self.aisles = pd.read_csv('./Data/aisles.csv')
+        self.departments = pd.read_csv('./Data/departments.csv')
+        self.products = pd.read_csv('./Data/products.csv')
+        self.orders = pd.read_csv('./Data/orders.csv')
+        self.order_products_prior = pd.read_csv('./Data/order_products__prior.csv')
+    # Products + (aisles & departments)
+    def extendProducts(self, num = 0):
+        self.eproducts = pd.merge(self.products, self.aisles, on = 'aisle_id', how = 'left')
+        self.eproducts = pd.merge(self.eproducts, self.departments, on = 'department_id', how = 'left')
+        self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id',
+                                                               'aisle_id', 'aisle',
+                                                               'department_id', 'department',
+                                                               'product_name'])
+        # Save Data(Extend Products)
         if num != 0:
-            
-'''
-# product
-a1 = pd.read_csv('products.csv')
-del a1['aisle_id']
-a2 = pd.read_csv('departments.csv')
-
-#print(a1)
-#print(a2)
-
-a = pd.merge(a1, a2, on = 'department_id', how = 'left')
-del a['department_id']
-a = pd.DataFrame(a, columns=['product_id', 'department', 'product_name'])
-#print(a)
-#a.to_csv('product.csv')
-#############################
-# order
-t1 = pd.read_csv('orders.csv')
-#print(t1)
-t1 = t1[t1['eval_set'].isin(['prior'])]
-#print(t1)
-t2 = pd.read_csv('order_products__prior.csv')
-
-t = pd.merge(t1, t2, on = 'order_id', how = 'outer')
-
-del t['eval_set']
-del t['order_number']
-del t['order_dow']
-del t['order_hour_of_day']
-del t['days_since_prior_order']
-del t['add_to_cart_order']
-del t['reordered']
-t = pd.DataFrame(t, columns=['order_id', 'user_id', 'product_id'])
-
-#print(t)
-#t.to_csv('order.csv')
-#############################
-# order + product
-r = pd.merge(t, a, on = 'product_id', how = 'left')
-
-print(r)
-r.to_csv('result.csv')
-'''
+            self.eproducts.to_csv('../PreprocessData/ExtendProducts.csv')
+    # Orders + (order_products_prior)
+    def extendOrders(self, num = 0):
+        self.eorders = pd.merge(self.orders[self.orders['eval_set'].isin(['prior'])], self.order_products_prior, on = 'order_id', how = 'outer')
+        self.eorders = pd.DataFrame(self.eorders, columns=['order_id', 'product_id',
+                                                           'user_id', 'eval_set', 'order_number', 'order_number', 'order_dow', 'order_hour_of_day', 'days_since_prior_order',
+                                                           'add_to_cart_order', 'reordered'])
+        # Delete Unnecessary Columns
+        '''
+        # orders
+        del self.eorders['eval_set']
+        del self.eorders['order_number']
+        del self.eorders['order_dow']
+        del self.eorders['order_hour_of_day']
+        del self.eorders['days_since_prior_order']
+        # order_products_prior
+        del self.eorders['add_to_cart_order']
+        del self.eorders['reordered']
+        '''
+        # Save Data(Extend Orders)
+        if num != 0:
+            self.eorders.to_csv('../PreprocessData/ExtendOrders.csv')
+    # ExtendOrders + (ExtendProducts)
+    def totalOrders(self, num = 0):
+        self.torders = pd.merge(self.eorders, self.eproducts, on = 'product_id', how = 'left')
+        # Save Data(Total Orders)
+        if num != 0:
+            self.torders.to_csv('../PreprocessData/TotalOrders.csv')
