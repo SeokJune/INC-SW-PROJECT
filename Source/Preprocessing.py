@@ -9,11 +9,11 @@ import pandas as pd
 class Preprocessing:
     # Load Data(.csv File)
     def __init__(self):
-        self.aisles = pd.read_csv('./Data/aisles.csv')
-        self.departments = pd.read_csv('./Data/departments.csv')
-        self.products = pd.read_csv('./Data/products.csv')
-        self.orders = pd.read_csv('./Data/orders.csv')
-        self.order_products_prior = pd.read_csv('./Data/order_products__prior.csv')
+        self.aisles = pd.read_csv('../Data/aisles.csv')
+        self.departments = pd.read_csv('../Data/departments.csv')
+        self.products = pd.read_csv('../Data/products.csv')
+        self.orders = pd.read_csv('../Data/orders.csv')
+        self.order_products_prior = pd.read_csv('../Data/order_products__prior.csv')
     # Products + (aisles & departments)
     def extendProducts(self, num = 0):
         self.eproducts = pd.merge(self.products, self.aisles, on = 'aisle_id', how = 'left')
