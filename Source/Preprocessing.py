@@ -55,10 +55,9 @@ class Preprocessing:
           
      # Sampling TotalOrders csv file 
      def csvSampling(self, num=0):
-        s = 1000000
-        # Desired Sample size 
+        # Desired Sample size
+        s = 1000000 
         self.totalorder_sample = toders.sample(s)
-    
         # Save Data(csv sample)
         if num != 0:
             self.totalorder_sample.to_csv('../PreprocessData/TotalOrders_sampling.csv')
