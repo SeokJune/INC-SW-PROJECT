@@ -52,3 +52,13 @@ class Preprocessing:
         # Save Data(Total Orders)
         if num != 0:
             self.torders.to_csv('../PreprocessData/TotalOrders.csv')
+          
+     # Sampling TotalOrders csv file 
+     def csvSampling(self, num=0):
+        s = 1000000
+        # Desired Sample size 
+        self.totalorder_sample = toders.sample(s)
+    
+        # Save Data(csv sample)
+        if num != 0:
+            self.totalorder_sample.to_csv('../PreprocessData/TotalOrders_sampling.csv')
