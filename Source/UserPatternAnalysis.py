@@ -9,9 +9,17 @@ UserPatternAnalysis.py
 # import Library
 ## 전처리 관련 클래스
 import Preprocessing
+## 분석 및 시각화 관련 클래스
+import DataAnalysis
 
-# 전처리 클래스 선언
+# 클래스 선언
 prepro = Preprocessing.Preprocessing()
+analysis = DataAnalysis.DataAnalysis()
 
 # 전처리 실행
-prepro.run(0)
+## 전처리(공백 or -1), 전처리 및 저장(0), 샘플링 데이터 가져오기(1)
+data = prepro.run(1)
+
+# 분석 및 시각화 실행
+## 
+analysis.run()
