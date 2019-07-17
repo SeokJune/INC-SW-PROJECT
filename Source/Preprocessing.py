@@ -26,10 +26,9 @@ class Preprocessing:
     def extendProducts(self, num):
         self.eproducts = pd.merge(self.products, self.aisles, on = 'aisle_id', how = 'left')
         self.eproducts = pd.merge(self.eproducts, self.departments, on = 'department_id', how = 'left')
-        self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id',
-                                                               'aisle_id', 'aisle',
+        self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id', 'product_name',
                                                                'department_id', 'department',
-                                                               'product_name'])
+                                                               'aisle_id', 'aisle'])
         # Save Data(Extend Products)
         if num == 0:
             self.eproducts.to_csv('../PreprocessData/ExtendProducts.csv')
@@ -65,14 +64,16 @@ class Preprocessing:
          
      # Get Sampling TotalOrders csv file 
     def getSampleCSV(self):
-        self.totalorder_sample = pd.read_csv('../PreprocessData/TotalOrders_.csv')
+        self.torders_ = pd.read_csv('../PreprocessData/TotalOrders_.csv')
 
     # Run Preprocessing
     def run(self, num = -1):
         if num == 1:
             self.getSampleCSV()
+            return self.torders_
         elif:
             self.priceToProducts()
             self.extendProducts(num)
             self.extendOrders(num)
             self.totalOrders(num)
+            return self.torders
