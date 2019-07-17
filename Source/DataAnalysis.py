@@ -49,10 +49,29 @@ class DataAnalysis:
                                                        title='Total Product Sales Rate',grid=True)
         plt.show()
         
+    def ProductsByCategory(self, key):
+        self.department = pd.read_csv('Data/departments.csv')
+        self.dep2 = self.department.set_index('department_id')
+        print(self.dep2)
+        self.cat = int(input('choose category: '))
+    
+        self.selproduct = self.torders_[self.torders_['department_id'].isin([str(self.cat)])].loc[:,['product_id']]['product_id']
+        self.selproductCount = self.selproduct.value_counts().head(15)
+        self.selproductCountDF = pd.DataFrame({'product_id':self.selproductCount.index, 'product_count':self.selproductCount.values})
+    
+        self.mergeDF = pd.merge(self.selproductCountDF,self.Product)
+        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh',
+                                                                     x='product_name',y='product_count',grid=True)
+        plt.show()
+        
     def run(self):
-        print('Best Products ▶ 1'+'\n'+'Best Department ▶ 2'+'\n'+'Best Reordered Products ▶ 3' +
-              '\n'+'Best Products and Reodered Products ▶ 4')
+        print('Best Products ▶ 1'+'\n'+
+              'Best Department ▶ 2'+'\n'+
+              'Best Reordered Products ▶ 3'+'\n'+
+              'Best Products and Reodered Products ▶ 4'+'\n'+
+              'Popular products by category ▶ 5')
         self.key = int(input('Choose the data you want:'))
+        print('\n')
         
         if self.key == 1:   
             self.BestProducts(self.key)
@@ -62,6 +81,8 @@ class DataAnalysis:
             self.BestReorderedProducts(self.key)
         elif self.key == 4:
             self.BestProducts_Reodered(self.key)
+        elif self.key == 5:
+            self.ProductsByCategory(self.key)
         else:
             print('error')
             #error return
