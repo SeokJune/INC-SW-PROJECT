@@ -31,7 +31,7 @@ class Preprocessing:
                                                                'aisle_id', 'aisle'])
         # Save Data(Extend Products)
         if num == 0:
-            self.eproducts.to_csv('../PreprocessData/ExtendProducts.csv')
+            self.eproducts.to_csv('../PreprocessData/ExtendProducts.csv', index = False)
             
     # Orders + (order_products_prior)
     def extendOrders(self, num):
@@ -53,14 +53,14 @@ class Preprocessing:
         '''
         # Save Data(Extend Orders)
         if num == 0:
-            self.eorders.to_csv('../PreprocessData/ExtendOrders.csv')
+            self.eorders.to_csv('../PreprocessData/ExtendOrders.csv', index = False)
 
     # ExtendOrders + (ExtendProducts)
     def totalOrders(self, num):
         self.torders = pd.merge(self.eorders, self.eproducts, on = 'product_id', how = 'left')
         # Save Data(Total Orders)
         if num == 0:
-            self.torders.to_csv('../PreprocessData/TotalOrders.csv')
+            self.torders.to_csv('../PreprocessData/TotalOrders.csv', index = False)
          
      # Get Sampling TotalOrders csv file 
     def getSampleCSV(self):
