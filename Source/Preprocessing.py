@@ -56,18 +56,21 @@ class Preprocessing:
             self.eorders.to_csv('../PreprocessData/ExtendOrders.csv', index = False)
 
     # ExtendOrders + (ExtendProducts)
-    def totalOrders(self, num):
+    def totalOrders(self, num, user):
         self.torders = pd.merge(self.eorders, self.eproducts, on = 'product_id', how = 'left')
         # Save Data(Total Orders)
         if num == 0:
-            self.torders.to_csv('../PreprocessData/TotalOrders.csv', index = False)
+            if user == 0:
+                self.torders.to_csv('../PreprocessData/TotalOrders.csv', index = False)
+            else:
+                self.torders[self.torders['user_id'] <= user].to_csv('../PreprocessData/TotalOrders_.csv', index = False)
          
      # Get Sampling TotalOrders csv file 
     def getSampleCSV(self):
         self.torders_ = pd.read_csv('../PreprocessData/TotalOrders_.csv')
 
     # Run Preprocessing
-    def run(self, num = -1):
+    def run(self, num = -1, user = 0):
         if num == 1:
             self.getSampleCSV()
             return self.torders_
@@ -75,5 +78,5 @@ class Preprocessing:
             self.priceToProducts()
             self.extendProducts(num)
             self.extendOrders(num)
-            self.totalOrders(num)
+            self.totalOrders(num, user)
             return self.torders
