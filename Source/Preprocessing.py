@@ -71,7 +71,7 @@ class Preprocessing:
         if num == 1:
             self.getSampleCSV()
             return self.torders_
-        elif:
+        else:
             self.priceToProducts()
             self.extendProducts(num)
             self.extendOrders(num)
