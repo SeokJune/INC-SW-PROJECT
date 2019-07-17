@@ -23,7 +23,7 @@ class Preprocessing:
                                  left_index = True, right_index = True, how = 'left')
             
     # Products + (aisles & departments)
-    def extendProducts(self, num = 0):
+    def extendProducts(self, num):
         self.eproducts = pd.merge(self.products, self.aisles, on = 'aisle_id', how = 'left')
         self.eproducts = pd.merge(self.eproducts, self.departments, on = 'department_id', how = 'left')
         self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id',
@@ -31,11 +31,11 @@ class Preprocessing:
                                                                'department_id', 'department',
                                                                'product_name'])
         # Save Data(Extend Products)
-        if num != 0:
+        if num == 0:
             self.eproducts.to_csv('../PreprocessData/ExtendProducts.csv')
             
     # Orders + (order_products_prior)
-    def extendOrders(self, num = 0):
+    def extendOrders(self, num):
         self.eorders = pd.merge(self.orders[self.orders['eval_set'].isin(['prior'])], self.order_products_prior, on = 'order_id', how = 'outer')
         self.eorders = pd.DataFrame(self.eorders, columns=['order_id', 'product_id',
                                                            'user_id', 'eval_set', 'order_number', 'order_number', 'order_dow', 'order_hour_of_day', 'days_since_prior_order',
@@ -53,28 +53,26 @@ class Preprocessing:
         del self.eorders['reordered']
         '''
         # Save Data(Extend Orders)
-        if num != 0:
+        if num == 0:
             self.eorders.to_csv('../PreprocessData/ExtendOrders.csv')
 
     # ExtendOrders + (ExtendProducts)
-    def totalOrders(self, num = 0):
+    def totalOrders(self, num):
         self.torders = pd.merge(self.eorders, self.eproducts, on = 'product_id', how = 'left')
         # Save Data(Total Orders)
-        if num != 0:
+        if num == 0:
             self.torders.to_csv('../PreprocessData/TotalOrders.csv')
+         
+     # Get Sampling TotalOrders csv file 
+    def getSampleCSV(self):
+        self.totalorder_sample = pd.read_csv('../PreprocessData/TotalOrders_.csv')
 
     # Run Preprocessing
-    def run(self, num = 0):
-        self.priceToProducts()
-        self.extendProducts(num)
-        self.extendOrders(num)
-        self.totalOrders(num)
-         
-     # Sampling TotalOrders csv file 
-    def csvSampling(self, num=0):
-        # Desired Sample size
-        s = 1000000
-        self.totalorder_sample = toders.sample(s)
-        # Save Data(csv sample)
-        if num != 0:
-            self.totalorder_sample.to_csv('../PreprocessData/TotalOrders_sampling.csv')
+    def run(self, num = -1):
+        if num == 1:
+            self.getSampleCSV()
+        elif:
+            self.priceToProducts()
+            self.extendProducts(num)
+            self.extendOrders(num)
+            self.totalOrders(num)
