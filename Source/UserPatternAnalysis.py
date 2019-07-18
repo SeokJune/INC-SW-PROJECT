@@ -5,6 +5,7 @@ UserPatternAnalysis.py
 # install Library List
 ## pip3 install pandas
 ## pip3 install numpy
+## pip3 install matplotlib
 
 # import Library
 ## 전처리 관련 클래스
@@ -22,5 +23,4 @@ analysis = DataAnalysis.DataAnalysis()
 data = prepro.run(num = 1)
 
 # 분석 및 시각화 실행
-## 
 analysis.run()
