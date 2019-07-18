@@ -20,7 +20,7 @@ analysis = DataAnalysis.DataAnalysis()
 # 전처리 실행
 ## num: 전처리(공백 or -1), 전처리 및 저장(0), 샘플링 데이터 가져오기(1)
 ## user: 저장 시 유저 카운트 지정
-data = prepro.run(num = 1)
+data = prepro.run(num = 0, user = 10000)
 
 # 분석 및 시각화 실행
 analysis.run()
