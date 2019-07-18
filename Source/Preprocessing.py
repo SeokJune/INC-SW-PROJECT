@@ -26,7 +26,7 @@ class Preprocessing:
     def extendProducts(self, num):
         self.eproducts = pd.merge(self.products, self.aisles, on = 'aisle_id', how = 'left')
         self.eproducts = pd.merge(self.eproducts, self.departments, on = 'department_id', how = 'left')
-        self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id', 'product_name',
+        self.eproducts = pd.DataFrame(self.eproducts, columns=['product_id', 'product_name', 'price',
                                                                'department_id', 'department',
                                                                'aisle_id', 'aisle'])
         # Save Data(Extend Products)
