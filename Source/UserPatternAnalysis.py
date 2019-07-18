@@ -7,20 +7,37 @@ UserPatternAnalysis.py
 ## pip3 install numpy
 ## pip3 install matplotlib
 
-# import Library
-## 전처리 관련 클래스
+# Import Library
+## Data Preprocessing Classes
 import Preprocessing
-## 분석 및 시각화 관련 클래스
+## Classes related to analysis and visualization
 import DataAnalysis
 
-# 클래스 선언
+# Class declaration
 prepro = Preprocessing.Preprocessing()
 analysis = DataAnalysis.DataAnalysis()
 
-# 전처리 실행
-## num: 전처리(공백 or -1), 전처리 및 저장(0), 샘플링 데이터 가져오기(1)
-## user: 저장 시 유저 카운트 지정
-data = prepro.run(num = 0, user = 10000)
+# Running Process
+while True:
+    print('Run Data PreProcessing ▶ 1')
+    print('Run Analysis and Visualization ▶ 2')
+    choice = int(input('Choose the Job:'))
+    
+    if choice == 1:
+        # Run Data Preprocessing
+        ## num: PreProcessing(-1), PreProcessing & Save(0), Read Sample Data(1)
+        ## user: Specify user counts when saving
+        n = int(input('PreProcessing(-1), PreProcessing & Save(0), Read Sample Data(1):'))
+        if n not in [-1, 0, 1]:
+            break
+        u = 0
+        if n == 0:
+            u = int(input('User Count:'))
 
-# 분석 및 시각화 실행
-analysis.run()
+        data = prepro.run(num = n, user = u)
+    elif choice == 2:
+        # Run Analysis and Visualization
+        analysis.run()
+        break
+    else:
+        print('Re-Enter')
