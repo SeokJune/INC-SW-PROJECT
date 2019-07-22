@@ -12,9 +12,9 @@ class DataAnalysis:
     
     # Load Data(.csv file)
     def ReadData(self):
-        self.torders_ = pd.read_csv('Data/TotalOrders_.csv')
-        self.department = pd.read_csv('Data/departments.csv')
-        self.Product = pd.read_csv('Data/products.csv')
+        self.torders_ = pd.read_csv('../PreprocessData/TotalOrders_.csv')
+        self.department = pd.read_csv('../Data/departments.csv')
+        self.Product = pd.read_csv('../Data/products.csv')
         del self.Product['aisle_id']
         del self.Product['department_id']
 
