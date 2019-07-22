@@ -30,13 +30,13 @@ class DataAnalysis:
     def BestProducts(self, key):
         self.ProductIdCountDF = pd.DataFrame({'product_id':self.ProductIdCount.index, 'product_count':self.ProductIdCount.values})
         self.mergeDF = pd.merge(self.ProductIdCountDF,self.Product)
-        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh',
+        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh', figsize=(10,6),
                                                                      x='product_name',y='product_count',
                                                                      title = 'Best Products',grid=True)
         plt.xlabel('ProductName')
         plt.ylabel('SalesRate')
-        plt.subplots_adjust(left=0.17)
-        plt.get_current_fig_manager().window.state('zoomed')
+        plt.subplots_adjust(left=0.20)
+        #plt.get_current_fig_manager().window.state('zoomed')
         plt.show()
         
     # Showing Best Department graph
@@ -46,21 +46,21 @@ class DataAnalysis:
         
         plt.xlabel('SalesRate')
         plt.ylabel('Department')
-        plt.subplots_adjust(left=0.17)
-        plt.get_current_fig_manager().window.state('zoomed')
+        plt.subplots_adjust(left=0.20)
+        #plt.get_current_fig_manager().window.state('zoomed')
         plt.show()
         
     # Showing Best Reordered Products graph
     def BestReorderedProducts(self, key):
         self.ReProductIdCountDF = pd.DataFrame({'product_id':self.ReProductIdCount.index, 'reproduct_count':self.ReProductIdCount.values})
         self.mergeDF = pd.merge(self.ReProductIdCountDF,self.Product)
-        self.mergeDF.sort_values(by='reproduct_count',ascending=True).plot(kind='barh',
+        self.mergeDF.sort_values(by='reproduct_count',ascending=True).plot(kind='barh', figsize=(10,6),
                                                        x='product_name', y='reproduct_count',
                                                        title='Best Reordered Products',grid=True)
         plt.xlabel('ReorderRate')
         plt.ylabel('ProductName')
-        plt.subplots_adjust(left=0.17)
-        plt.get_current_fig_manager().window.state('zoomed')
+        plt.subplots_adjust(left=0.20)
+        #plt.get_current_fig_manager().window.state('zoomed')
         plt.show()
 
     # Relationship between the Best Products and the Best Reordered Products    
@@ -69,14 +69,13 @@ class DataAnalysis:
         self.ReProductIdCountDF = pd.DataFrame({'product_id':self.ReProductIdCount.index, 'reproduct_count':self.ReProductIdCount.values})
         self.mergeDF = pd.merge(self.ProductIdCountDF,self.ReProductIdCountDF)
         self.mergeDF = pd.merge(self.mergeDF,self.Product)
-        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh',
-                                                       x='product_name', y=['reproduct_count','product_count'], 
-                                                       figsize=(8,8),
+        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh', figsize=(10,6),
+                                                       x='product_name', y=['reproduct_count','product_count'],
                                                        title='Total Product Sales Rate',grid=True)
         plt.xlabel('SalesRate')
         plt.ylabel('ProductName')
-        plt.subplots_adjust(left=0.17)
-        plt.get_current_fig_manager().window.state('zoomed')
+        plt.subplots_adjust(left=0.20)
+        #plt.get_current_fig_manager().window.state('zoomed')
         plt.show()
 
     # Popular Products by Product category
@@ -92,15 +91,14 @@ class DataAnalysis:
         self.mergeDF = pd.merge(self.selproductIdCountDF,self.Product)
         self.selproductName = self.department[self.department['department_id'] == self.cat]['department']
         self.seltitle = 'Best ' + self.selproductName[self.cat-1] + ' Products'
-        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh',
+        self.mergeDF.sort_values(by='product_count',ascending=True).plot(kind='barh', figsize=(10,6),
                                                                      x='product_name',y='product_count',
-                                                                     figsize=(8,8),
                                                                      title=self.seltitle,
                                                                      grid=True) # self.de[self.de[''] == 3]['name']
         plt.xlabel('SalesRate')
         plt.ylabel('ProductName')
-        plt.subplots_adjust(left=0.17)
-        plt.get_current_fig_manager().window.state('zoomed')
+        plt.subplots_adjust(left=0.20)
+        #plt.get_current_fig_manager().window.state('zoomed')
         plt.show()
         
     # Run main Program
