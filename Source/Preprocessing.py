@@ -8,7 +8,7 @@ import numpy as np
 
 class Preprocessing:
     # Load Data(.csv File)
-    def __init__(self):
+    def loadCSV(self):
         self.aisles = pd.read_csv('../Data/aisles.csv')
         self.departments = pd.read_csv('../Data/departments.csv')
         self.products = pd.read_csv('../Data/products.csv')
@@ -75,6 +75,7 @@ class Preprocessing:
             self.getSampleCSV()
             return self.torders_
         else:
+            self.loadCSV()
             self.priceToProducts()
             self.extendProducts(num)
             self.extendOrders(num)
